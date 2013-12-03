@@ -1,4 +1,6 @@
-data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show)
+module HaskellDatatypes where
+
+data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show, Eq)
 
 insert :: (Ord a) => a -> Tree a -> Tree a
 

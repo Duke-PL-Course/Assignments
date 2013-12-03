@@ -1,3 +1,5 @@
+module HaskellTyping where
+
 -- slice returns a range of a list from index a to index b, inclusive
 -- slice 5 8 [1..] => [5, 6, 7, 8]
 -- Look up the "take" and "drop" functions
@@ -14,7 +16,7 @@ encode :: (Eq a) => [a] -> [(a, Int)]
 decode :: [(a, Int)] -> [a]
 
 -- dropEvery takes list and removes every nth element
--- dropEvery 3 [1..13] => [1, 2, 4, 5, 7, 8, 10, 11, 13]
+-- dropEvery [1..13] 3 => [1, 2, 4, 5, 7, 8, 10, 11, 13]
 dropEvery :: [a] -> Int -> [a]
 
 -- rpn evaluates a string of reverse polish notation operations

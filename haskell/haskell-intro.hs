@@ -1,3 +1,5 @@
+module HaskellIntro where
+
 -- Problem 1: Write myZip which zips two lists
 
 
