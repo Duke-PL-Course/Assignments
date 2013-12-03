@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+
+TEAMS_URL = "http://espn.go.com/mens-college-basketball/teams"
+
+def team_url(team)
+  body = Net::HTTP.get(URI(TEAMS_URL))
+  if body =~ /<a href="([^"]*)" class="bi">#{team}<\/a>/
+    URI($1)
+  end
+end
+
+def print_schedule(uri)
+  body = Net::HTTP.get(uri)
+  body.scan(/<tr class="(evenrow|oddrow) team-\d{2}-\d+">.+?<\/tr>/) do
+    row = $&
+    date = row.match(/<td>([A-Z][a-z]{2} \d+)<\/td>/)[1]
+    team = row.match(/title="([^"]*)"/)[1]
+
+    if row =~ /<td>(\d+:\d{2} [AP]M [A-Z]{2}|TBD)<\/td>/
+      time = $1
+      puts "#{date}, #{time}: #{team}"
+    else
+      puts "#{date}: #{team}"
+    end
+  end
+end
+
+def main
+  print "> "
+  team = gets.chomp
+  uri = team_url(team)
+  if uri.nil?
+    puts "Sorry, team not found"
+  else
+    print_schedule(uri)
+  end
+  main
+end
+
+main
